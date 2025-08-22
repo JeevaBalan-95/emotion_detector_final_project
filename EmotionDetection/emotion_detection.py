@@ -9,6 +9,10 @@ def emotion_detector(text_to_analyze):
     response = requests.post(url, json=input_json, headers=headers)
     formatted_response = json.loads(response.text)
     
+    if response.status_code == 400:
+        identified_emotions = {"anger":None,"disgust":None,"fear":None,"joy":None,"sadness":None,"dominant_emotion":None}
+        return identified_emotions
+    
     identified_emotions = formatted_response["emotionPredictions"][0]["emotion"]
     # print(f"Identified emotions are {identified_emotions}")
     
